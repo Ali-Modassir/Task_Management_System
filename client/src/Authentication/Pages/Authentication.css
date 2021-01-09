@@ -1,0 +1,13 @@
+.login_container {
+  padding: 20px;
+  height: fit-content;
+  width: 370px;
+  margin: 130px auto;
+  font-family: "Quicksand", sans-serif;
+}
+
+@media (max-width: 500px) {
+  .login_container {
+    width: 300px;
+  }
+}
