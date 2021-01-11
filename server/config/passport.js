@@ -25,9 +25,8 @@ passport.use(
           "google.id": profile.id,
         });
 
-        console.log(existingUser);
         if (existingUser) {
-          return done(null, exsistingUser);
+          return done(null, existingUser);
         }
 
         const localExistingUser = await user.User.findOneAndUpdate(
