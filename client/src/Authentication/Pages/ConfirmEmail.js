@@ -33,7 +33,12 @@ const ConfirmEmail = () => {
         if (response.ok) {
           setSuccessMessage(response.message);
           notify.show(response.message, "success");
-          auth.login(response.userId, response.token);
+          auth.login(
+            response.userName,
+            response.userEmail,
+            response.userId,
+            response.token
+          );
         } else {
           setErrorMessage(response.message);
           notify.show(response.message, "error");

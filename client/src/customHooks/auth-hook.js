@@ -6,11 +6,15 @@ export const useAuth = () => {
   const [token, setToken] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
+  const [userName, setUserName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
   //Local-login saving-token-to-localStorage
-  const login = useCallback((uid, token, expirationDate) => {
+  const login = useCallback((uname, uemail, uid, token, expirationDate) => {
     setToken(token);
     setUserId(uid);
+    setUserEmail(uemail);
+    setUserName(uname);
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpirationDate(tokenExpirationDate);
@@ -75,5 +79,5 @@ export const useAuth = () => {
     }
   }, [login, token]);
 
-  return { token, login, logout, userId, googleLogin };
+  return { token, login, logout, userId, userName, userEmail, googleLogin };
 };

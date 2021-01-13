@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { createBrowserHistory } from "history";
 
 //Router
 import {
@@ -11,9 +12,11 @@ import Notifications from "react-notify-toast"; //For pop-up notification
 
 //Contexts
 import { AuthContext } from "./context/authContext";
+import { TaskContext } from "./context/taskContext";
 
 //hooks
 import { useAuth } from "./customHooks/auth-hook";
+import { useTaskHook } from "./customHooks/task-hook";
 
 //Pages
 //Authentication
@@ -23,25 +26,41 @@ import ConfirmEmail from "./Authentication/Pages/ConfirmEmail";
 import ResetPswd from "./Authentication/Pages/ResetPswd";
 
 //Dashboard
-import Dashboard from "./Dashboard/Dashboard";
+import DashLayout from "./Dashboard/layouts/DashLayout";
 
 const App = () => {
   //Context
-  const { token, login, logout, userId, googleLogin } = useAuth();
+  const {
+    token,
+    login,
+    logout,
+    userId,
+    userName,
+    userEmail,
+    googleLogin,
+  } = useAuth();
+  const {
+    allTasks,
+    setAllTasksHandler,
+    allComments,
+    commentsHandler,
+  } = useTaskHook();
+
+  const hist = createBrowserHistory();
 
   //Checks if user as token then it will render particular routes
   let routes;
   if (token) {
     routes = (
-      <Router>
+      <Router history={hist}>
         <Switch>
-          <Route path="/dash" exact>
-            <Dashboard />
-          </Route>
           <Route path="/auth/reset/:resetToken">
             <ResetPswd />
           </Route>
-          <Redirect to="/dash" />
+          <Route path="/dash">
+            <DashLayout />
+          </Route>
+          <Redirect from="/" to="/dash/dashboard" />
         </Switch>
       </Router>
     );
@@ -74,13 +93,24 @@ const App = () => {
         value={{
           isLoggedIn: !!token,
           token: token,
+          userName: userName,
+          userEmail: userEmail,
           logout: logout,
           login: login,
           googleLogin: googleLogin,
           userId: userId,
         }}
       >
-        <main>{routes}</main>
+        <TaskContext.Provider
+          value={{
+            allTasks,
+            allComments,
+            setAllTasksHandler,
+            commentsHandler,
+          }}
+        >
+          <main>{routes}</main>
+        </TaskContext.Provider>
       </AuthContext.Provider>
     </Fragment>
   );

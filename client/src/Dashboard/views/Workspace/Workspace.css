@@ -1,0 +1,20 @@
+.workspaceCard {
+  width: 60%;
+}
+
+.workspaceCardHeading {
+  width: 100%;
+  background-color: #dc06f0;
+}
+.workspaceCardHeading h3 {
+  font-size: 1.5rem;
+  color: white;
+  padding: 10px;
+  margin-left: 30px;
+  font-weight: 300;
+}
+
+.workspaceCardBody {
+  display: flex;
+  align-items: center;
+}

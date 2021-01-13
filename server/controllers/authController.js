@@ -95,6 +95,8 @@ module.exports.confirmEmail = async (req, res, next) => {
         const token = createToken(confirmedUser._id);
         res.json({
           userId: confirmedUser._id,
+          userName: confirmedUser.local.name,
+          userEmail: confirmedUser.local.email,
           token: token,
           ok: true,
           message: "Email Confirmed, Account Successfully Created",
@@ -125,6 +127,8 @@ module.exports.login_post = async (req, res, next) => {
       const token = createToken(user._id);
       res.status(201).json({
         userId: user._id,
+        userName: user.local.name,
+        userEmail: user.local.email,
         token,
         ok: true,
         message: "Logged In Successfully",
