@@ -98,11 +98,11 @@ const TaskList = () => {
   return (
     <React.Fragment>
       {isLoading && <CircularProgress />}
-      {taskList.length === 0 ? (
+      {!!taskList === false ? (
         <Typography>No Task Assigned</Typography>
       ) : (
         <div className="TaskList">
-          {taskList.map((task, index) => {
+          {taskList.map &&  taskList.map((task, index) => {
             return (
               <div className="taskItem">
                 <List component="nav">
