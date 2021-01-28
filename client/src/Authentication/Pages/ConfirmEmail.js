@@ -34,6 +34,7 @@ const ConfirmEmail = () => {
           setSuccessMessage(response.message);
           notify.show(response.message, "success");
           auth.login(
+            response.userType,
             response.userName,
             response.userEmail,
             response.userId,

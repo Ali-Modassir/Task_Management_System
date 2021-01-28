@@ -38,4 +38,27 @@ module.exports = {
       `This is a confirmation that the password for your account ${email} \n` +
       " has just been changed.\n",
   }),
+
+  //Sending task details to VE
+  taskDetailsToVE: (
+    name,
+    userId,
+    assignUserId,
+    assignUserName,
+    taskName,
+    taskType,
+    taskId,
+    taskDescription
+  ) => ({
+    subject: "You have been assigned a task",
+    html: `
+     <h2>Hello, ${name}</h2>
+     <p>A task is assigned to you by ${assignUserName}.</p>
+     <h3>TASK DETAILS</h3>
+     <p>Task Name: ${taskName}</p>
+     <p>Task Type: ${taskType}</p>
+     <p>Task Description: ${taskDescription}</p>
+     <p><a href="${client_origin}/VE/dash/${assignUserId}=${taskId}=${userId}">CLICK HERE </a> to add this task on your dashboard <br/> or copy and paste this below link in your browser window.<br/>${client_origin}/VE/dash/${assignUserId}=${taskId}=${userId}</p>
+    `,
+  }),
 };

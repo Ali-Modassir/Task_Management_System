@@ -1,20 +1,21 @@
 const mongoose = require("mongoose");
 
-const workspaceSchema = new mongoose.Schema({
+const VE_WorkspaceSchema = new mongoose.Schema({
   userId: String,
   userName: String,
   userEmail: String,
   tasks: [
     {
       id: Number,
+      assignUserId: String,
+      assignUserName: String,
+      assignUserEmail: String,
+      assignedOn: Date,
       taskId: String,
       taskName: String,
       taskType: Object,
       taskDescription: String,
       dueDate: Date,
-      assigned_VE_Id: String,
-      assigned_VE_Name: String,
-      assigned_VE_Email: String,
       status: {
         type: Boolean,
         default: false,
@@ -31,6 +32,6 @@ const workspaceSchema = new mongoose.Schema({
     },
   ],
 });
-const Workspace = mongoose.model("workspace", workspaceSchema);
+const VE_Workspace = mongoose.model("ve_workspace", VE_WorkspaceSchema);
 
-module.exports = Workspace;
+module.exports = VE_Workspace;

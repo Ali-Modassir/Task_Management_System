@@ -8,25 +8,33 @@ export const useAuth = () => {
   const [userId, setUserId] = useState(false);
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  const [userType, setUserType] = useState(null);
 
   //Local-login saving-token-to-localStorage
-  const login = useCallback((uname, uemail, uid, token, expirationDate) => {
-    setToken(token);
-    setUserId(uid);
-    setUserEmail(uemail);
-    setUserName(uname);
-    const tokenExpirationDate =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-    setTokenExpirationDate(tokenExpirationDate);
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        userId: uid,
-        token: token,
-        expiration: tokenExpirationDate.toISOString(),
-      })
-    );
-  }, []);
+  const login = useCallback(
+    (userType, uname, uemail, uid, token, expirationDate) => {
+      setToken(token);
+      setUserId(uid);
+      setUserType(userType);
+      setUserEmail(uemail);
+      setUserName(uname);
+      const tokenExpirationDate =
+        expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+      setTokenExpirationDate(tokenExpirationDate);
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          userType: userType,
+          userName: uname,
+          userEmail: uemail,
+          userId: uid,
+          token: token,
+          expiration: tokenExpirationDate.toISOString(),
+        })
+      );
+    },
+    []
+  );
 
   //Google-login
   const googleLogin = useCallback((token, expirationDate) => {
@@ -72,6 +80,9 @@ export const useAuth = () => {
       new Date(storedData.expiration) > new Date()
     ) {
       login(
+        storedData.userType,
+        storedData.userName,
+        storedData.userEmail,
         storedData.userId,
         storedData.token,
         new Date(storedData.expiration)
@@ -79,5 +90,14 @@ export const useAuth = () => {
     }
   }, [login, token]);
 
-  return { token, login, logout, userId, userName, userEmail, googleLogin };
+  return {
+    token,
+    login,
+    logout,
+    userType,
+    userId,
+    userName,
+    userEmail,
+    googleLogin,
+  };
 };

@@ -17,7 +17,7 @@ app.use(passport.initialize());
 //passport template
 require("./config/passport");
 
-//To pass CORS origin policy..which helps to run React and Node separately on diff. hosts
+//To pass CORS policy..which will help to run React and Node separately on diff. hosts
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(

@@ -48,16 +48,17 @@ const createToken = (id) => {
 //SignUp Controller
 module.exports.signup_post = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, VE_Employee } = req.body;
     const exsistingUser = await UserModel.User.findOne({
       "local.email": email,
     });
     if (exsistingUser) {
       res.json({ message: "User Already Registered, Please Login", ok: false });
     }
+    const userType = VE_Employee ? "VE" : "client";
     const user = await new UserModel.User({
       method: "local",
-      local: { name, email, password },
+      local: { name, email, password, userType },
     });
     await user.save(); //Saved-User-Data
 
@@ -97,6 +98,7 @@ module.exports.confirmEmail = async (req, res, next) => {
           userId: confirmedUser._id,
           userName: confirmedUser.local.name,
           userEmail: confirmedUser.local.email,
+          userType: confirmedUser.local.userType,
           token: token,
           ok: true,
           message: "Email Confirmed, Account Successfully Created",
@@ -129,6 +131,7 @@ module.exports.login_post = async (req, res, next) => {
         userId: user._id,
         userName: user.local.name,
         userEmail: user.local.email,
+        userType: user.local.userType,
         token,
         ok: true,
         message: "Logged In Successfully",

@@ -1,7 +1,7 @@
 export const TaskType = [
-  { title: "Content Writing" },
-  { title: "Social Media Campaign" },
-  { title: "Poster Making" },
-  { title: "Content Writing2" },
-  { title: "Content Writing3" },
+  "Content Writing",
+  "Social Media Campaign",
+  "Poster Making",
+  "Content Writing2",
+  "Content Writing3",
 ];

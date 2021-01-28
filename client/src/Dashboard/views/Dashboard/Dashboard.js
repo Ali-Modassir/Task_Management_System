@@ -33,6 +33,7 @@ export default function Dashboard() {
                 width: "130px",
                 height: "130px",
                 margin: "0 30px 0 30px",
+                backgroundColor: "#4c7905f2",
                 border: "2px solid rgb(255, 2, 107)",
               }}
             />
@@ -51,13 +52,15 @@ export default function Dashboard() {
 
       {/* Workspace-Button */}
 
-      <div id="icon" onClick={createWorkspace}>
-        <AddIcon
-          className="workspace-icon"
-          style={{ height: "50px", width: "50px", paddingTop: "10px" }}
-        />
-        <div className="label">WORKSPACE</div>
-      </div>
+      {auth.userType === "client" && (
+        <div id="icon" onClick={createWorkspace}>
+          <AddIcon
+            className="workspace-icon"
+            style={{ height: "50px", width: "50px", paddingTop: "10px" }}
+          />
+          <div className="label">WORKSPACE</div>
+        </div>
+      )}
     </>
   );
 }

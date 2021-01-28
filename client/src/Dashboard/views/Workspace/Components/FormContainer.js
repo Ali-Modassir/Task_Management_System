@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 //Material-ui core componets
 import { Button, LinearProgress, Box } from "@material-ui/core";
+import { DatePicker } from "formik-material-ui-pickers";
 
 //Formik Components
 import { Formik, Form, Field } from "formik"; //Using Formik
@@ -43,14 +44,17 @@ const FormContainer = () => {
   });
 
   //Submitting the form
-  const onSubmit = (values, { setSubmitting }) => {
+  const onSubmit = (values, { setSubmitting, resetForm }) => {
     setTimeout(async () => {
       setSubmitting(false);
       const formData = JSON.stringify(values, null, 2);
       var data = JSON.parse(formData);
       var id = uuidv4();
+      console.log(auth.userName);
       var extraData = {
         userId: auth.userId,
+        userName: auth.userName,
+        userEmail: auth.userEmail,
         taskId: id,
       };
       data = { ...data, ...extraData };
@@ -69,6 +73,7 @@ const FormContainer = () => {
         if (response.ok) {
           taskContext.setAllTasksHandler(response.task);
           console.log(response.message);
+          resetForm({ values: "" });
         }
       } catch (error) {
         console.log(error);
@@ -86,34 +91,30 @@ const FormContainer = () => {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Form>
             <div className="formContainer">
-              <Box margin={2}>
+              <Box margin={3}>
                 <Field
                   component={TextField}
                   name="taskName"
                   type="text"
                   label="Task Heading"
                   style={{ width: "400px" }}
-                  variant="outlined"
                 />
               </Box>
-              <Box margin={2}>
+              <Box margin={3}>
                 <Field
                   component={Autocomplete}
                   name="taskType"
                   options={TaskType}
-                  getOptionLabel={(option) => option.title || "none"}
-                  style={{ width: "300px" }}
                   renderInput={(params) => (
                     <MuiTextField
                       {...params}
                       helperText={touched["taskType"] && errors["taskType"]}
                       label="Task Type"
-                      variant="outlined"
                     />
                   )}
                 />
               </Box>
-              <Box margin={2}>
+              <Box margin={3}>
                 <Field
                   component={TextField}
                   name="taskDescription"
@@ -121,10 +122,12 @@ const FormContainer = () => {
                   row="5"
                   fullWidth
                   label="Task Description"
-                  variant="outlined"
                 />
               </Box>
-              <Box margin={2}>
+              <Box margin={3}>
+                <Field component={DatePicker} name="dueDate" label="Due Date" />
+              </Box>
+              <Box margin={3}>
                 {isLoading && <LinearProgress />}
                 <Button
                   variant="contained"

@@ -1,10 +1,11 @@
 import React, { useState, useContext, Fragment } from "react";
+import { useHistory } from "react-router-dom";
 import { notify } from "react-notify-toast"; //For pop-up notification at top
 //Using Formik for rendering Forms
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 //Material-UI
-import { TextField } from "formik-material-ui";
+import { TextField, Switch } from "formik-material-ui";
 import {
   Button,
   LinearProgress,
@@ -12,6 +13,7 @@ import {
   Link,
   Grid,
   Box,
+  FormControlLabel,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -23,6 +25,7 @@ import { AuthContext } from "../../context/authContext"; //context
 const AuthForm = () => {
   const auth = useContext(AuthContext); //Context
   const { sendRequest, isLoading } = useHttpClient(); //Http-Custom-hook
+  const history = useHistory();
 
   //States
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -58,11 +61,13 @@ const AuthForm = () => {
             setSuccessMessage(response.message);
             notify.show(response.message, "success");
             auth.login(
+              response.userType,
               response.userName,
               response.userEmail,
               response.userId,
               response.token
             );
+            history.push("/dash");
           } else {
             setErrorMessage(response.message);
             notify.show(response.message, "warning");
@@ -104,6 +109,7 @@ const AuthForm = () => {
     name: "",
     email: "",
     password: "",
+    VE_Employee: false,
   };
 
   //Validation-Schema
@@ -174,7 +180,18 @@ const AuthForm = () => {
                   fullWidth
                 />
               </Box>
-
+              <Box margin={1}>
+                <FormControlLabel
+                  control={
+                    <Field
+                      component={Switch}
+                      type="checkbox"
+                      name="VE_Employee"
+                    />
+                  }
+                  label="Check if Encomece V.E"
+                />
+              </Box>
               {isLoading && <LinearProgress />}
               <Box margin={1}>
                 <Button

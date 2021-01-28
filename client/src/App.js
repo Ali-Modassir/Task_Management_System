@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { createBrowserHistory } from "history";
 
 //Router
 import {
@@ -27,6 +26,11 @@ import ResetPswd from "./Authentication/Pages/ResetPswd";
 
 //Dashboard
 import DashLayout from "./Dashboard/layouts/DashLayout";
+import VE_Workspace from "./Dashboard/views/Workspace/VE_Workspace";
+
+//AdminPanel
+import AdminPanel from "./AdminPanel/AdminPanel";
+import AdminTaskTable from "./AdminPanel/AdminTaskTable";
 
 const App = () => {
   //Context
@@ -35,6 +39,7 @@ const App = () => {
     login,
     logout,
     userId,
+    userType,
     userName,
     userEmail,
     googleLogin,
@@ -44,23 +49,31 @@ const App = () => {
     setAllTasksHandler,
     allComments,
     commentsHandler,
+    allUsers,
+    setAllUsersHandler,
+    VE_details,
   } = useTaskHook();
 
-  const hist = createBrowserHistory();
-
   //Checks if user as token then it will render particular routes
+
   let routes;
   if (token) {
     routes = (
-      <Router history={hist}>
+      <Router>
         <Switch>
-          <Route path="/auth/reset/:resetToken">
-            <ResetPswd />
+          <Route path="/VE/dash/:id">
+            <VE_Workspace />
           </Route>
           <Route path="/dash">
             <DashLayout />
           </Route>
-          <Redirect from="/" to="/dash/dashboard" />
+          <Route path="/admin/:userId" exact>
+            <AdminTaskTable />
+          </Route>
+          <Route path="/admin" exact>
+            <AdminPanel />
+          </Route>
+          <Redirect to="/dash" />
         </Switch>
       </Router>
     );
@@ -80,6 +93,15 @@ const App = () => {
           <Route path="/auth/confirm/:id" exact>
             <ConfirmEmail />
           </Route>
+          <Route path="/admin" exact>
+            <AdminPanel />
+          </Route>
+          <Route path="/VE/dash/:id">
+            <VE_Workspace />
+          </Route>
+          <Route path="/admin/:userId" exact>
+            <AdminTaskTable />
+          </Route>
           <Redirect to="/auth" exact />
         </Switch>
       </Router>
@@ -95,10 +117,11 @@ const App = () => {
           token: token,
           userName: userName,
           userEmail: userEmail,
+          userId: userId,
+          userType: userType,
           logout: logout,
           login: login,
           googleLogin: googleLogin,
-          userId: userId,
         }}
       >
         <TaskContext.Provider
@@ -107,6 +130,9 @@ const App = () => {
             allComments,
             setAllTasksHandler,
             commentsHandler,
+            allUsers,
+            VE_details,
+            setAllUsersHandler,
           }}
         >
           <main>{routes}</main>

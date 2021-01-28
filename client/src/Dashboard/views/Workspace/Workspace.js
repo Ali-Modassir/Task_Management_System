@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 
 //Material-ui-core Elements
 import { Card, CardContent } from "@material-ui/core";
 
 import FormContainer from "./Components/FormContainer";
 import TaskList from "./Components/TaskList";
+import { AuthContext } from "../../../context/authContext";
 
 //Style
 import "./Workspace.css";
+import VE_myTasks from "./Components/VE_myTasks";
 
 const Workspace = () => {
+  const auth = useContext(AuthContext);
   return (
     <>
-      <Card className="workspaceCard">
-        <div className="workspaceCardHeading">
-          <h3> My Tasks</h3>
-        </div>
-        <CardContent>
-          <div className="workspaceCardBody">
-            <FormContainer />
+      {auth.userType === "client" && (
+        <Card className="workspaceCard">
+          <div className="workspaceCardHeading">
+            <h3>Create Task</h3>
           </div>
-        </CardContent>
-      </Card>
+          <CardContent>
+            <div className="workspaceCardBody">
+              <FormContainer />
+            </div>
+          </CardContent>
+        </Card>
+      )}
       <br />
       <Card className="workspaceCard">
         <div className="workspaceCardHeading">
-          <h3> Task List</h3>
+          <h3>My Task</h3>
         </div>
         <CardContent>
           <div className="workspaceCardBody">
-            <TaskList />
+            {auth.userType === "client" ? <TaskList /> : <VE_myTasks />}
           </div>
         </CardContent>
       </Card>

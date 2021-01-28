@@ -74,8 +74,8 @@ const Login = () => {
                 alignItems: "center",
               }}
             >
-              {" "}
-              <FcGoogle style={{ fontSize: "large" }} /> Continue with Google
+              <FcGoogle style={{ fontSize: "large", marginRight: "5px" }} />
+              Continue with Google
             </Link>
           </Button>
         )}

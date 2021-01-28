@@ -5,19 +5,26 @@ import { TextField } from "formik-material-ui";
 
 //Material-ui-core components
 import {
-  CircularProgress,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Button,
-  Box,
   LinearProgress,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  withStyles,
+  Typography,
 } from "@material-ui/core";
+import MuiAccordion from "@material-ui/core/Accordion";
+import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 //Icons
 import AssignmentOutlinedIcon from "@material-ui/icons/AssignmentOutlined";
 import DetailsIcon from "@material-ui/icons/Details";
+import ListIcon from "@material-ui/icons/List";
 
 //Context
 import { AuthContext } from "../../../../context/authContext";
@@ -26,27 +33,70 @@ import { TaskContext } from "../../../../context/taskContext";
 //Custom Hooks
 import { useHttpClient } from "../../../../customHooks/http-hook";
 
+const Accordion = withStyles({
+  root: {
+    border: "1px solid rgba(0, 0, 0, .125)",
+    boxShadow: "none",
+    "&:not(:last-child)": {
+      borderBottom: 0,
+    },
+    "&:before": {
+      display: "none",
+    },
+    "&$expanded": {
+      margin: "auto",
+    },
+  },
+  expanded: {},
+})(MuiAccordion);
+
+const AccordionSummary = withStyles({
+  root: {
+    backgroundColor: "rgba(0, 0, 0, .03)",
+    borderBottom: "1px solid rgba(0, 0, 0, .125)",
+    marginBottom: -1,
+    minHeight: 56,
+    "&$expanded": {
+      minHeight: 56,
+    },
+  },
+  content: {
+    "&$expanded": {
+      margin: "12px 0",
+    },
+  },
+  expanded: {},
+})(MuiAccordionSummary);
+
+const AccordionDetails = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiAccordionDetails);
+
 const TaskList = () => {
   //Using context for state update
   const auth = useContext(AuthContext);
   const taskContext = useContext(TaskContext);
 
-  //Storing-List-of-Tasks
+  //States
   const [taskList, setTasksList] = useState([]);
+  const [expanded, setExpanded] = useState("");
 
   //Custom hook for all http work
   const { sendRequest, isLoading } = useHttpClient();
 
-  //State used for adding comment section
-  const [detailsShow, setDetailsShow] = useState(false);
-  const [clickedTaskId, setClickedTaskId] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(null);
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   //Fetching all tasks from mongodb using a custom-hook
   useEffect(() => {
     let mounted = true;
     sendRequest(
-      "http://localhost:8000/api/dashboard/workspace/allTasks/" + auth.userId
+      process.env.REACT_APP_BASE_URL +
+        "/dashboard/workspace/allTasks/" +
+        auth.userId
     )
       .then((response) => {
         if (mounted) {
@@ -57,13 +107,6 @@ const TaskList = () => {
     return () => (mounted = false);
   }, [taskContext.allTasks, taskContext.allComments]);
 
-  //Toogle Comment-Section
-  const toggleDrawer = (id, index) => {
-    setDetailsShow(!detailsShow);
-    setClickedTaskId(id);
-    setCurrentIndex(index);
-  };
-
   //Converting Date-String to human readable
   const dateHandler = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -71,12 +114,19 @@ const TaskList = () => {
   };
 
   //Post request to mongodb for storing comments
-  const onSubmit = (values, { setSubmitting }) => {
+  const onSubmit = (assigned_VE_Id) => (values, { setSubmitting }) => {
     setTimeout(() => {
       setSubmitting(false);
       const formData = JSON.stringify(values, null, 2);
       var data = JSON.parse(formData);
-      data = { ...data, taskId: clickedTaskId, userId: auth.userId };
+      data = {
+        ...data,
+        taskId: assigned_VE_Id,
+        userId: auth.userId,
+        assigned_VE_Id: assigned_VE_Id,
+        person: auth.userName,
+        type: "client",
+      };
       data = JSON.stringify(data);
       sendRequest(
         "http://localhost:8000/api/dashboard/workspace/task/comments",
@@ -86,112 +136,127 @@ const TaskList = () => {
           "Content-Type": "application/json",
         }
       )
-        .then((response) => {
-          if (response.ok) {
-            taskContext.commentsHandler(response.comment);
-          }
-        })
+        .then((response) => taskContext.commentsHandler(response.comments))
         .catch((err) => console.log(err));
     }, 500);
   };
 
   return (
-    <React.Fragment>
-      {isLoading && <CircularProgress />}
-      {!!taskList === false ? (
-        <Typography>No Task Assigned</Typography>
-      ) : (
-        <div className="TaskList">
-          {taskList.map &&  taskList.map((task, index) => {
-            return (
-              <div className="taskItem">
-                <List component="nav">
-                  <ListItem key={index}>
-                    <ListItemIcon
-                      onClick={() => toggleDrawer(task.taskId, index)}
-                    >
-                      <AssignmentOutlinedIcon />
-                    </ListItemIcon>
-                    <ListItemText style={{ marginRight: "30px" }}>
-                      {task.taskName}
-                    </ListItemText>
-                    <ListItemText style={{ marginRight: "30px" }}>
-                      {task.taskType.title}
-                    </ListItemText>
-                    <ListItemText style={{ marginRight: "30px" }}>
-                      {dateHandler(task.dueDate)}
-                    </ListItemText>
-                    <ListItemIcon
-                      // style={{ : "30px" }}
-                      onClick={() => toggleDrawer(task.taskId, index)}
-                    >
-                      Details <DetailsIcon />
-                    </ListItemIcon>
-                  </ListItem>
-
-                  {detailsShow && currentIndex === index && (
-                    <div className="taskDetails">
-                      <Box margin={1}>
-                        <div className="details">
-                          <Typography>
-                            Description : {task.taskDescription}
-                          </Typography>
-                        </div>
-                      </Box>
-                      <List component="nav">
-                        {task.taskComments.map((comment, index) => {
-                          return (
-                            <ListItem key={index}>
-                              <ListItemText>{comment.person}</ListItemText>
-                              <ListItemText>{comment.comment}</ListItemText>
-                              <ListItemText>
-                                {dateHandler(comment.time)}
-                              </ListItemText>
-                            </ListItem>
-                          );
-                        })}
-                      </List>
-                      <Formik
-                        initialValues={{ comment: "" }}
-                        onSubmit={onSubmit}
-                      >
-                        {({ submitForm, isSubmitting }) => (
-                          <Form>
-                            <div className="formContainer">
-                              <Box margin={1}>
-                                <Field
-                                  component={TextField}
-                                  name="comment"
-                                  type="text"
-                                  fullWidth
-                                  label="Add a comment"
-                                />
-                              </Box>
-                              <Box margin={1}>
-                                {isLoading && <LinearProgress />}
-                                <Button
-                                  variant="contained"
-                                  color="primary"
-                                  disabled={isSubmitting}
-                                  onClick={submitForm}
-                                  style={{ margin: "10px 0 0 0" }}
-                                >
-                                  Comment
-                                </Button>
-                              </Box>
-                            </div>
-                          </Form>
-                        )}
-                      </Formik>
-                    </div>
+    <div>
+      {taskList.map &&
+        taskList.map((task, index) => {
+          return (
+            <Accordion
+              square
+              expanded={expanded === index}
+              onChange={handleChange(index)}
+            >
+              <AccordionSummary>
+                <Typography>{task.taskType}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Task Name</TableCell>
+                          <TableCell align="center">Task Description</TableCell>
+                          <TableCell align="center">Due Date</TableCell>
+                          <TableCell align="center">Assigned To</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow key={task.taskId}>
+                          <TableCell component="th" scope="row">
+                            {task.taskName}
+                          </TableCell>
+                          <TableCell align="center">
+                            {task.taskDescription}
+                          </TableCell>
+                          <TableCell align="center">
+                            {dateHandler(task.dueDate)}
+                          </TableCell>
+                          <TableCell align="center">
+                            {task.assigned_VE_Email
+                              ? task.assigned_VE_Email
+                              : "Not Assigned"}
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <Box margin={2}>
+                    <Typography variant="h6" color="secondary">
+                      Start Conversation
+                    </Typography>
+                  </Box>
+                  {task.taskComments.length != 0 && (
+                    <>
+                      <TableContainer component={Paper}>
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>User</TableCell>
+                              <TableCell align="center">Comment</TableCell>
+                              <TableCell align="center">Time</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {task.taskComments.map((row) => (
+                              <TableRow key={row._id}>
+                                <TableCell>{row.person}</TableCell>
+                                <TableCell align="center">
+                                  {row.comment}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {dateHandler(row.time)}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </>
                   )}
-                </List>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </React.Fragment>
+                  <Formik
+                    initialValues={{ comment: "" }}
+                    onSubmit={onSubmit(task.taskId, task.assigned_VE_Id)}
+                  >
+                    {({ submitForm, isSubmitting }) => (
+                      <Form>
+                        <div className="formContainer">
+                          <Box margin={1}>
+                            <Field
+                              component={TextField}
+                              name="comment"
+                              type="text"
+                              fullWidth
+                              label="Add a comment"
+                            />
+                          </Box>
+                          {isLoading && <LinearProgress color="secondary" />}
+                          <Box margin={1}>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              disabled={isSubmitting}
+                              onClick={submitForm}
+                              style={{ margin: "10px 0 0 0" }}
+                            >
+                              Comment
+                            </Button>
+                          </Box>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
+    </div>
   );
 };
 
