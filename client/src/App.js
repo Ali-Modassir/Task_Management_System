@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 //Router
 import {
@@ -7,30 +7,39 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+
 import Notifications from "react-notify-toast"; //For pop-up notification
 
-//Contexts
-import { AuthContext } from "./context/authContext";
-import { TaskContext } from "./context/taskContext";
+//Contexts-------------------------------------------
+import { AuthContext } from "./TMS/context/authContext";
+import { TaskContext } from "./TMS/context/taskContext";
 
-//hooks
-import { useAuth } from "./customHooks/auth-hook";
-import { useTaskHook } from "./customHooks/task-hook";
+//hooks----------------------------------------------
+import { useAuth } from "./TMS/customHooks/auth-hook";
+import { useTaskHook } from "./TMS/customHooks/task-hook";
 
-//Pages
-//Authentication
-import Authentication from "./Authentication/Pages/Authentication";
-import GoogleLogin from "./Authentication/Pages/GoogleLogin";
-import ConfirmEmail from "./Authentication/Pages/ConfirmEmail";
-import ResetPswd from "./Authentication/Pages/ResetPswd";
+//TMS Views -----------------------------------------------------------------------------------------
 
-//Dashboard
-import DashLayout from "./Dashboard/layouts/DashLayout";
-import VE_Workspace from "./Dashboard/views/Workspace/VE_Workspace";
+//Authentication--------------------------------------------------
+import Authentication from "./TMS/Authentication/Pages/Authentication";
+import GoogleLogin from "./TMS/Authentication/Pages/GoogleLogin";
+import ConfirmEmail from "./TMS/Authentication/Pages/ConfirmEmail";
+import ResetPswd from "./TMS/Authentication/Pages/ResetPswd";
 
-//AdminPanel
-import AdminPanel from "./AdminPanel/AdminPanel";
-import AdminTaskTable from "./AdminPanel/AdminTaskTable";
+//Dashboard------------------------------------------------
+import DashLayout from "./TMS/Dashboard/layouts/DashLayout";
+import VE_Workspace from "./TMS/Dashboard/views/Workspace/VE_Workspace";
+
+//AdminPanel---------------------------------------
+import AdminPanel from "./TMS/AdminPanel/AdminPanel";
+import AdminTaskTable from "./TMS/AdminPanel/AdminTaskTable";
+
+//-------------------------------------------------------------------------------------------------
+
+//Encomecs views----------------------------------------------------------
+import Home from "./Encomece/views/Home";
+import StartupProgram from "./Encomece/views/StartupProgram";
+import VEProgram from "./Encomece/views/VEProgram";
 
 const App = () => {
   //Context
@@ -73,7 +82,7 @@ const App = () => {
           <Route path="/admin" exact>
             <AdminPanel />
           </Route>
-          <Redirect to="/dash" />
+          <Redirect to="/dash" exact />
         </Switch>
       </Router>
     );
@@ -81,6 +90,15 @@ const App = () => {
     routes = (
       <Router>
         <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/ve_program" exact>
+            <VEProgram />
+          </Route>
+          <Route path="/startup_program" exact>
+            <StartupProgram />
+          </Route>
           <Route path="/auth" exact>
             <Authentication />
           </Route>
@@ -102,14 +120,14 @@ const App = () => {
           <Route path="/admin/:userId" exact>
             <AdminTaskTable />
           </Route>
-          <Redirect to="/auth" exact />
+          <Redirect to="/" exact />
         </Switch>
       </Router>
     );
   }
 
   return (
-    <Fragment>
+    <>
       <Notifications />
       <AuthContext.Provider
         value={{
@@ -138,7 +156,7 @@ const App = () => {
           <main>{routes}</main>
         </TaskContext.Provider>
       </AuthContext.Provider>
-    </Fragment>
+    </>
   );
 };
 

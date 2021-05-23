@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     userType: {
       type: String,
-      required: true,
+      default: "client",
     },
     secretToken: String,
     resetPasswordToken: String,

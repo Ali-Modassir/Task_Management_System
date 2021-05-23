@@ -18,5 +18,6 @@ router.get("/allUsers/tasks/:id", workspaceController.get_taskById); // Get task
 router.post("/VE/addTask", workspaceController.add_VE_task); //add VE task
 router.get("/VE/task/:id", workspaceController.get_All_VE_tasks); //get all VE tasks ;
 router.get("/VE/data", workspaceController.get_All_VE); //Get all VE data
+router.post("/issue", workspaceController.post_issue_admin); //send client issue to admin
 
 module.exports = router;

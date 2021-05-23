@@ -208,6 +208,7 @@ module.exports.resetPassword = async (req, res, next) => {
       {
         $set: {
           "local.password": hashPswd,
+          "local.confirmed": true,
           "local.resetPasswordToken": undefined,
           "local.resetPasswordExpires": undefined,
         },
@@ -232,5 +233,24 @@ module.exports.resetPassword = async (req, res, next) => {
   } catch (error) {
     const errors = handleErrors(error);
     return next(errors);
+  }
+};
+
+//get user_details_by_id
+module.exports.getUser = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await UserModel.User.findById(id);
+  if (user) {
+    const jwttoken = createToken(id);
+    const data = {
+      userType: user.local.userType,
+      userName: user.local.name,
+      userEmail: user.local.email,
+      userId: id,
+      token: jwttoken,
+    };
+    res.json(data);
+  } else {
+    res.json({ message: "User Not found", ok: false });
   }
 };

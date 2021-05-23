@@ -1,0 +1,138 @@
+.dash-leftSidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 20px 50px 30px;
+  background-color: rgb(221, 217, 217);
+  width: 320px;
+  height: 100%;
+  margin-right: 0;
+  position: fixed;
+  right: 0;
+}
+
+.dash-avatarImg {
+  height: 150px;
+  width: 150px;
+  margin-top: 130px;
+}
+.dash-avatarImg img {
+  width: 100%;
+  object-fit: contain;
+}
+.dash-client-name {
+  font-size: 2rem;
+  padding: 5%;
+  font-family: "Playfair Display", serif;
+}
+
+.dash-client-about-heading {
+  font-weight: bolder;
+  font-size: 1.2rem;
+  padding: 5% 5% 0 5%;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.dash-client-about {
+  color: #707070;
+  font-size: 1.05rem;
+  font-weight: bold;
+  padding: 5% 5% 0 5%;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-contactDetails {
+  padding: 5% 5% 0 5%;
+}
+.dash-contact-email {
+  display: flex;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 2%;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-contact-email span {
+  margin-left: 20px;
+}
+.dash-contact-phone {
+  display: flex;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 2%;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-contact-phone span {
+  margin-left: 20px;
+}
+.dash-update-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.dash-update-btn button {
+  width: 180px;
+  border-radius: 60px;
+  height: 40px;
+  border: 0px;
+  background-color: #092958;
+  margin-top: 20px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.dash-loginBtn {
+  margin-left: 100px;
+}
+
+.dash-logout-btn {
+  width: 120px;
+  height: 30px;
+  background-color: rgb(7, 31, 75);
+  font-size: 1.2rem;
+  font-family: 500;
+  color: white;
+  border-radius: 100px;
+  border: none;
+}
+
+@media (max-width: 1024px) {
+  .dash-leftSidebar {
+    width: 245px;
+  }
+  .dash-avatarImg {
+    width: 110px;
+    height: 110px;
+  }
+  .dash-client-name {
+    font-size: 1.8rem;
+  }
+  .dash-client-about-heading {
+    font-size: 1.3rem;
+  }
+  .dash-client-about {
+    font-size: 1rem;
+  }
+  .dash-contact-email {
+    font-size: 0.8rem;
+  }
+  .dash-contact-phone span {
+    margin-left: 8px;
+  }
+  .dash-contact-email span {
+    margin-left: 8px;
+  }
+  .dash-contact-phone {
+    font-size: 0.8rem;
+  }
+  .dash-logout-btn {
+    width: 100px;
+    height: 25px;
+    font-size: 1rem;
+  }
+  .dash-update-btn button {
+    width: 150px;
+    font-size: 1rem;
+    height: 30px;
+  }
+}

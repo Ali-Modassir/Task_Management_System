@@ -1,0 +1,138 @@
+.adminPanel-navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgb(17, 29, 91);
+  padding: 0.7%;
+  align-items: center;
+}
+.logout-btn {
+  width: 100px;
+  background-image: linear-gradient(315deg, #2a2a72 0%, #4169e1 74%);
+  font-size: 0.9rem;
+  color: white;
+  border-radius: 10px;
+  font-family: "Ubuntu";
+  font-weight: bold;
+  margin-right: 50px;
+}
+.adminPanel-navbar img {
+  margin-left: 50px;
+}
+
+.adminPanel {
+  display: flex;
+  justify-content: center;
+}
+
+.adminpanel-heading {
+  font-size: 2.8rem;
+  font-family: "Playfair Display", serif;
+}
+
+.adminPanel-comp-container {
+  display: flex;
+  width: 90vw;
+  margin-top: 40px;
+  flex-direction: column;
+  align-items: center;
+}
+.dash-myTask-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 50px;
+  border-radius: 10px;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-myTask-heading {
+  width: 99%;
+  padding: 0.5%;
+  display: flex;
+  background-color: #fff7e4;
+  border-radius: 10px 10px 0 0;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-myTask-container-heading {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-left: 2%;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-myTask-tasks-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.6%;
+  padding: 1% 2% 1% 2%;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-myTask-tablehead {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #707070;
+  font-family: "Ubuntu", sans-serif;
+}
+.dash-myTask-tablehead span {
+  width: 20%;
+}
+.dash-myTask-tablehead-col3 {
+  text-align: center;
+}
+.dash-myTasks-task-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-tasklist-task-container-no-task {
+  padding: 5px;
+  font-weight: lighter;
+  font-size: 2rem;
+}
+
+.dash-myTasks-task-container-contents {
+  border-top: 2px solid #dbd1d1;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1%;
+  /* padding-bottom:%; */
+  align-items: center;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.dash-myTasks-task-container-contents .dash-myTasks-task-container-col {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+.col0 img {
+  width: 80px;
+}
+
+.col1-name {
+  font-size: 1.2rem;
+  margin-left: 10px;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.col3 {
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .dash-myTasks-task-container-contents {
+    font-size: 0.9rem;
+  }
+  .dash-myTask-tablehead {
+    font-size: 1rem;
+  }
+  .adminPanel-comp-container {
+    width: 95vw;
+  }
+}

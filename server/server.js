@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const googleRoutes = require("./routes/googleRoutes");
-const passport = require("passport"); // at header
+const passport = require("passport");
 const contactRoutes = require("./routes/contactRoutes");
 const workspaceRoutes = require("./routes/workspaceRoutes");
 
@@ -43,22 +43,21 @@ app.use((error, req, res, next) => {
 });
 
 //Setting up database and backend Server
+const PORT = process.env.PORT || 8000;
+const CONNECTION_URL = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-shard-00-00.qrjhn.mongodb.net:27017,cluster0-shard-00-01.qrjhn.mongodb.net:27017,cluster0-shard-00-02.qrjhn.mongodb.net:27017/${process.env.DB_NAME}?ssl=true&replicaSet=atlas-p99ho6-shard-0&authSource=admin&retryWrites=true&w=majority`;
 
-const port = process.env.PORT || 8000;
 mongoose
-  .connect(
-    `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-shard-00-00.kyz02.mongodb.net:27017,cluster0-shard-00-01.kyz02.mongodb.net:27017,cluster0-shard-00-02.kyz02.mongodb.net:27017/${process.env.DB_NAME}?ssl=true&replicaSet=atlas-72j8yq-shard-0&authSource=admin&retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
+  .connect(CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => {
-    app.listen(port, () => {
-      console.log(`MongoDB Connected 😊 and Connection started at ${port}`);
-      console.log(`Local -> http://localhost:${port}`);
+    app.listen(PORT, () => {
+      console.log(`MongoDB Connected 😊 and Connection started at ${PORT}`);
+      console.log(`Local -> http://localhost:8000`);
+      console.log(`Client Origin -> ${process.env.CLIENT_ORIGIN}`);
     });
   })
   .catch((err) => {

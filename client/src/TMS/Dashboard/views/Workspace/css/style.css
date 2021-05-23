@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+.dash-workspace-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  border: 10px solid #96c0eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.dash-workspace-innerContent {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.dash-workspace-cardHeading {
+  display: flex;
+  width: 100%;
+  padding: 2% 1% 0% 0%;
+}
+.dash-workspace-cardHeading span {
+  margin-left: 4%;
+  font-size: 2rem;
+}
+.dash-workspace-cardContent {
+  width: 100%;
+}
+
+.dash-createTask-formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2% 3% 1% 3%;
+  font-size: 1rem;
+  color: blue;
+}
+.dash-createTask-feild {
+  width: 90%;
+  background-color: #eff2fc;
+  border: 2px solid #9ac2eb;
+  border-radius: 10px;
+  padding: 0.5% 0 1% 1%;
+  margin: 1%;
+  font-size: 1rem;
+  color: #9ac2eb;
+}
+.dash-createTask-button {
+  margin: 1%;
+}
+
+.dash-tasklist-container {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+  margin-top: 50px;
+}
+.dash-tasklist-heading {
+  display: flex;
+  width: 100%;
+  background-color: transparent;
+}
+.dash-tasklist-heading span {
+  background-color: #5c8af5;
+  font-size: 1.8rem;
+  padding: 1% 3.5% 1% 3.5%;
+  font-weight: bolder;
+  border-radius: 10px 10px 0 0;
+  color: white;
+  font-family: "Lato", sans-serif;
+}
+.dash-tasklist-task-container {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0 10px 10px 10px;
+}
+
+.dash-tasklist-task {
+  display: flex;
+  width: 98%;
+  padding: 1%;
+  border-bottom: 3px solid rgb(0, 132, 255);
+  cursor: pointer;
+}
+.dash-tasklist-task:hover {
+  background-color: rgb(241, 238, 238);
+}
+.last {
+  border-bottom: none;
+}
+.dash-tasklist-task span {
+  padding: 1%;
+  margin-left: 30px;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.dash-taskdetail-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.dash-taskdetail-heading {
+  padding: 2% 2% 2% 0;
+  width: 100%;
+  display: flex;
+}
+.dash-taskdetail-heading span {
+  margin-left: 40px;
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+}
+.dash-taskdetail-heading span img:hover {
+  background-color: white;
+  border-radius: 10px;
+}
+.dash-taskdetail-tasks-container {
+  padding: 2%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 10px solid #dee4f7;
+}
+.dash-taskdetail-tablehead {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  border: 2px solid #9ac2eb;
+  background-color: #f2f2f2;
+  padding: 1%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+.dash-taskdetail-tablehead span {
+  width: 20%;
+  color: #4791db;
+}
+.dash-taskdetail-tablehead-col3 {
+  text-align: center;
+}
+.dash-taskdetail-task-container {
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+}
+.dash-taskdetail-task-container-contents {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  border-bottom: 2px solid #9ac2eb;
+}
+.dash-taskdetail-task-container-col {
+  width: 20%;
+  font-size: 0.9rem;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+
+.col3 {
+  text-align: center;
+}
+.col4 {
+  text-align: center;
+}
+.col5 {
+  text-align: center;
+}
+.not-active {
+  color: orange;
+}
+
+.dash-taskcomment-container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 30px;
+  border: 10px solid #dee4f7;
+  padding: 2%;
+}
+.dash-taskcomment-heading {
+  padding: 1%;
+  font-size: 1.75rem;
+  margin-left: 50px;
+  display: flex;
+  width: 100%;
+  font-family: "Poppins";
+  color: rgb(76 71 71);
+}
+.dash-taskcomment-comment-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+}
+.dash-taskcomment-table-head {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  border: 2px solid #9ac2eb;
+  background-color: #f2f2f2;
+  padding: 1%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+.dash-taskcomment-table-head span {
+  width: 20%;
+  color: #4791db;
+}
+.dash-taskcomment-table-body {
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+}
+.dash-taskcomment-comment {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  border-bottom: 2px solid #9ac2eb;
+}
+.dash-taskcomment-comment-col {
+  width: 20%;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  font-weight: bold;
+  font-family: "Ubuntu";
+}
+.dash-addComment {
+  background-color: #eff2fc;
+  width: 96%;
+  margin: 1%;
+  border-radius: 5px;
+  padding: 0 1% 1% 1%;
+}
+
+.dash-myTasks-task-container-img {
+  width: 40px;
+  object-fit: contain;
+  margin-left: 30px;
+}
+
+@media (max-width: 1024px) {
+  .dash-workspace-cardHeading span {
+    font-size: 1.7rem;
+  }
+  .dash-createTask-formContainer {
+    font-size: 0.9rem;
+  }
+  .dash-tasklist-heading span {
+    font-size: 1.7rem;
+  }
+  .dash-tasklist-task span {
+    font-size: 1.5rem;
+  }
+  .dash-taskdetail-heading span {
+    font-size: 1.7rem;
+  }
+
+  .dash-taskdetail-tablehead {
+    font-size: 1.1rem;
+  }
+
+  .dash-taskdetail-task-container-col {
+    font-size: 1rem;
+  }
+  .dash-taskcomment-heading {
+    font-size: 1.7rem;
+  }
+  .dash-taskcomment-table-head {
+    font-size: 1.1rem;
+  }
+  .dash-taskcomment-comment-col {
+    font-size: 1rem;
+  }
+}

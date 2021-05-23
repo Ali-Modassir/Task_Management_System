@@ -14,7 +14,7 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/", session: false }),
   function (req, res) {
-    var token = req.user.google.token;
+    var token = req.user._id;
     res.redirect(process.env.CLIENT_ORIGIN + "/auth/" + token);
   }
 );

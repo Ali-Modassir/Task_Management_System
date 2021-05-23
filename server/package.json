@@ -1,13 +1,12 @@
 {
-  "name": "taskmanager",
+  "name": "encomece-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend For Encomece in NodeJS",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
-  "author": "",
+  "author": "Encomece",
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",

@@ -1,0 +1,121 @@
+.authContainer {
+  display: flex;
+  justify-content: center;
+  margin: 130px auto;
+  font-family: "Quicksand", sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: min-content;
+  border-radius: 5px;
+}
+.auth-formContainer {
+  display: flex;
+  width: 450px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #eff2fc;
+}
+.auth-forms {
+  width: 80%;
+}
+
+.auth-log {
+  margin-top: 30px;
+}
+.auth-feild {
+  margin-bottom: 8px;
+}
+
+.auth-google-btn {
+  background-color: white;
+  border: 1.6px solid #767674;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  font-size: 0.9rem;
+  padding: 9px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.auth-google-btn span {
+  font-family: Ubuntu;
+  font-weight: bold;
+  color: #767674;
+}
+
+.auth-forgot-pswd {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.auth-toogle-text {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.brandContainer {
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 286.45px;
+}
+.brandContainer img {
+  height: 40px;
+  width: 196px;
+}
+
+.auth-forgot-pswd-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0px 40px 0px;
+  border-radius: 5px;
+  background-color: #eff2fc;
+}
+.auth-change-pswd-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  margin: 130px auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 40px 0px 40px 0px;
+  border-radius: 5px;
+  background-color: #eff2fc;
+}
+
+.auth-forgot-password-text {
+  text-align: center;
+  font-family: "Ubuntu";
+  font-weight: bold;
+  padding: 10px 0 10px 0;
+  width: 75%;
+}
+
+.auth-forgot-pswd-form {
+  width: 75%;
+}
+.dash-right-sidebar {
+  background-color: #2234ae;
+  background-image: linear-gradient(315deg, #2234ae 0%, #191714 74%);
+}
+
+@media (max-width: 750px) {
+  .brandContainer {
+    display: none;
+  }
+  .auth-google-btn {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .auth-formContainer {
+    width: 340px;
+  }
+}

@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+.navbar {
+  width: calc(100% + 315px);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.navbarHeading {
+  font-size: 2.5rem;
+  font-family: "Lato", sans-serif;
+  font-weight: bolder;
+  margin-left: 20px;
+}
+
+.logoutButton {
+  margin-right: 10px;
+}
+.logout-btn {
+  width: 120px;
+  height: 30px;
+  background-color: rgb(7, 31, 75);
+  font-size: 1.2rem;
+  font-family: 500;
+  color: white;
+  border-radius: 100px;
+  border: none;
+}

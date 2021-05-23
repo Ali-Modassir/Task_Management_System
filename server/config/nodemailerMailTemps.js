@@ -61,4 +61,14 @@ module.exports = {
      <p><a href="${client_origin}/VE/dash/${assignUserId}=${taskId}=${userId}">CLICK HERE </a> to add this task on your dashboard <br/> or copy and paste this below link in your browser window.<br/>${client_origin}/VE/dash/${assignUserId}=${taskId}=${userId}</p>
     `,
   }),
+
+  //Sending issue to admin
+  sendIssue: (task, issueDescription, email) => ({
+    subject: "Issue Triggered",
+    html: `
+      <p>The client ${email} is facing issue on ${task}</p>
+      <h5>Issue Description</h5>
+      <p>${issueDescription}</p>
+    `,
+  }),
 };

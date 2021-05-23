@@ -371,10 +371,24 @@ module.exports.get_All_VE_tasks = async (req, res, next) => {
     if (user) {
       res.json(user.tasks);
     } else {
-      res.json({ message: "User not found", ok: false });
+      res.json({ message: "No Task Assigned", ok: false });
     }
   } catch (err) {
     console.log(err);
     res.json(err);
+  }
+};
+
+//Sending issue to admin
+module.exports.post_issue_admin = async (req, res, next) => {
+  const { task, issueDescription, email } = req.body;
+  try {
+    await sendEmail(
+      process.env.MAIL_USER,
+      emailTemplates.sendIssue(task, issueDescription, email)
+    );
+    res.json({ message: "Successfully send", ok: true });
+  } catch (error) {
+    res.json({ message: "Some error occcured in sending email", ok: false });
   }
 };

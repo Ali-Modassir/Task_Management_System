@@ -1,0 +1,46 @@
+.carousel_layout {
+  display: flex;
+  flex-wrap: wrap;
+  place-content: center;
+  background-image: url("../assets/Images/Index_img/Mask\ Group\ 25.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 76px;
+  height: 500px;
+}
+
+.carousel_layout_content {
+  width: 450px;
+  text-align: center;
+}
+.carousel_layout_content p {
+  font-size: 20px;
+  opacity: 0.6;
+  padding-top: 40px;
+}
+.carousel_layout_content > div {
+  position: relative;
+  top: 25px;
+}
+
+.carousel-indicators {
+  top: 100px !important ;
+}
+
+.carousel-indicators li {
+  background-color: darkgray !important;
+  border-radius: 50% !important;
+  height: 18px !important;
+  width: 18px !important;
+  top: 120px !important ;
+}
+
+@media (max-width: 1024px) {
+  .carousel_layout_content {
+    width: 380px;
+  }
+  .carousel_layout_content p {
+    font-size: 17px;
+  }
+}
